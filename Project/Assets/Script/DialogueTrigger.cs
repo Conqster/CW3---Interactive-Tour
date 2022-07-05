@@ -15,6 +15,7 @@ public class DialogueTrigger : MonoBehaviour
     //private GameBehaviour gameBehaviour;
     private PlayerBehaviour _player;
     private FollowCam _followCam;
+    private NPCBehaviour _npc;
 
     [SerializeField] private Animator dialogueAnim;
     private int dialAnimHash;
@@ -27,6 +28,7 @@ public class DialogueTrigger : MonoBehaviour
         playerTrans = GameObject.Find("Player").transform;
         _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
         _followCam = GameObject.Find("Main Camera").GetComponent<FollowCam>();
+        _npc = FindObjectOfType<NPCBehaviour>();    
         dialogueAnim = GameObject.Find("Placement").GetComponent<Animator>();
         _dialogueMan = DialogueSys.GetComponent<DialogueManager2>();    
         dialAnimHash = Animator.StringToHash("playerDialogue");
@@ -83,6 +85,7 @@ public class DialogueTrigger : MonoBehaviour
 
     private void SelfDistruct()
     {
+        _npc.moveToIdle = true;
         _followCam.enabled = true;
         _player.enabled = true;                
         dialogueAnim.enabled = false;
